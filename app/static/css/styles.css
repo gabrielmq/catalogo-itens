@@ -26,12 +26,8 @@ body {
 .header-container {
     display: flex;
     flex-flow: row nowrap;
-    padding: 1.25rem .8rem !important;
+    padding: 1.25rem 0 !important;
     background: #f7f7f7;
-    width: 1140px;
-    margin: 0 auto;
-    font-size: 16px;
-    font-weight: 500;
 }
 
 /*********** FIM HEADER ***********/
@@ -131,7 +127,7 @@ body {
 
 @media (max-width: 360px) {
     #root {
-        padding: 5px;
+        padding: 15px;
     }
 
     #login-container .card {
