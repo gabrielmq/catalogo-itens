@@ -21,4 +21,7 @@ login_manager.login_view = "login"
 manager = Manager(app)
 manager.add_command("db", MigrateCommand)
 
+
+from app.controllers import categoria_controller
+from app.controllers import auth_controller
 import app.models.model
