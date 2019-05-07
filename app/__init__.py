@@ -20,3 +20,5 @@ login_manager.login_view = "login"
 
 manager = Manager(app)
 manager.add_command("db", MigrateCommand)
+
+import app.models.model
