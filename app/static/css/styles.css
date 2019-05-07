@@ -23,6 +23,19 @@ body {
 
 /*********** FIM ESTILO PADRÃO ***********/
 
+.header-container {
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 1.25rem .8rem !important;
+    background: #f7f7f7;
+    width: 1140px;
+    margin: 0 auto;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/*********** FIM HEADER ***********/
+
 #login-container {
     display: flex;
     justify-content: center;
@@ -123,5 +136,11 @@ body {
 
     #login-container .card {
         max-width: 350px;
+    }
+}
+
+@media (max-width: 960px) {
+    .header-container {
+        width: 100%;
     }
 }
