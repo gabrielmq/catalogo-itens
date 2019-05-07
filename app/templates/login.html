@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+{% block content %}
+
+<div id="login-container">
+  <div class="card text-center py-2 border-0 bg-light rounded">
+    <div class="card-body">
+      <h3 class="card-title">Entrar</h3>
+      <div class="button-container">
+        <div class="">
+          <a class="btn btn-lg social-button facebook-button"
+             href="{{ url_for('oauth_authorize', provider='facebook') }}">
+            <i class="ml-2 fab fa-facebook fa-fw"></i>
+            <span class="ml-4">Entrar com o Facebook</span>
+          </a>
+        </div>
+        <div class="seperador card-text">
+          <em class="text-muted">ou</em>
+        </div>
+        <div>
+          <a class="btn btn-lg social-button google-button"
+             href="{{ url_for('oauth_authorize', provider='google') }}">
+            <img class="ml-2" width="20px" alt="Google &quot;G&quot; Logo"
+                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+            <span class="ml-3">Entrar com o Google</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

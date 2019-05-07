@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+body {
+    font-family: Roboto, 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #333;
+    -webkit-font-smoothing: antialiased !important;
+    background: #f7f7f7;
+}
+
+#root {
+    padding: 20px;
+}
+
+/*********** FIM ESTILO PADRÃO ***********/
+
+#login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#login-container .card {
+    width: 420px;
+    height: 280px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3)
+}
+
+.seperador {
+    margin: 20px 5px 0;
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+
+.seperador em {
+    padding: 0 10px;
+    background: #f7f7f7;
+    position: relative;
+    top: -11px;
+    z-index: 1;
+}
+
+.button-container-hide {
+    display: none;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.25rem 0 !important;
+}
+
+.social-button {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding-left: 25px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.facebook-button {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: rgba(0,0,0,0.2);
+    font-family: Roboto, 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.facebook-button:hover {
+    cursor: pointer;
+    color: #fff;
+}
+
+.google-button {
+    color: #969696;
+    background: #fff;
+    font-family: Roboto, 'Montserrat', sans-serif;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .25);
+    padding: 5px;
+    font-weight: 500;
+}
+
+.google-button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3) !important;
+    -moz-box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3) !important;
+    -webkit-box-shadow: 0 0 3px 3px rgba(66, 133, 244, .3) !important;
+    color: #969696;
+}
+
+.social-button :first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    padding: 7px;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+/********** FIM LOGIN ***********/
+
+@media (max-width: 360px) {
+    #root {
+        padding: 5px;
+    }
+
+    #login-container .card {
+        max-width: 350px;
+    }
+}
