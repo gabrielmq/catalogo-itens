@@ -21,4 +21,5 @@ def categoria_json(nome):
 @app.route("/")
 @app.route("/categorias")
 def categorias():
-    return render_template("categoria/categorias.html")
+    categorias = db.session.query(Categoria).all()
+    return render_template("categoria/categorias.html", categorias=categorias)

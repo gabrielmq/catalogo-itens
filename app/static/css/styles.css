@@ -17,6 +17,16 @@ body {
     background: #f7f7f7;
 }
 
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color: #a5a4a4;
+    text-decoration: none;
+}
+
 #root {
     padding: 20px;
 }
@@ -125,6 +135,38 @@ body {
 
 /********** FIM LOGIN ***********/
 
+.categorias-container {
+    font-size: 1.2rem;
+    margin: 5px auto 0;
+}
+
+.categorias-container ul {
+    list-style: none;
+    padding: 0 .5rem !important;
+}
+
+.categorias-container ul li {
+    padding: .5rem  0 !important;
+}
+
+.divisor-categorias-itens {
+    border-right: 1px solid #d4d4d4;
+}
+
+.itens-categoria-container {
+    font-size: 1.2rem;
+    margin: 5px auto 0;
+}
+
+.itens-categoria-container ul {
+    list-style: none;
+    padding: 0 .5rem !important;
+}
+
+.itens-categoria-container ul li {
+    padding: .5rem  0 !important;
+}
+
 @media (max-width: 360px) {
     #root {
         padding: 15px;
@@ -138,5 +180,19 @@ body {
 @media (max-width: 960px) {
     .header-container {
         width: 100%;
+    }
+}
+
+@media (max-width: 767px ) {
+    #ultimos-itens {
+        display: none;
+    }
+
+    .divisor-categorias-itens {
+       border-right: none;
+    }
+
+    .itens-categoria-container {
+        display: none;
     }
 }
