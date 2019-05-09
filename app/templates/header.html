@@ -6,11 +6,18 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+      {% if current_user.is_authenticated %}
+      <img class="img-fluid rounded-circle mr-2" width="25" src="{{ current_user.foto }}" alt="" />
+      <span class="navbar-text text-uppercase">{{ current_user.nome }},
+        <a href="{{ url_for("logout") }}">sair</a>
+      </span>
+      {% else %}
       <a class="btn btn-link px-0" href="{{ url_for("login") }}">
-        <span class="navbar-text">
+        <span class="navbar-text text-uppercase">
           Entrar
         </span>
       </a>
+      {% endif %}
     </div>
   </nav>
 </header>
