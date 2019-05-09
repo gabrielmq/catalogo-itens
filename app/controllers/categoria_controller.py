@@ -14,7 +14,7 @@ def categorias():
     ultimos_itens = db.session.query(ItemCategoria).order_by(db.desc(ItemCategoria.id)).limit(10)
     return render_template("categoria/categorias.html",
                            categorias=categorias,
-                           ultimos_itens=ultimos_itens)
+                           itens=ultimos_itens)
 
 
 @app.route("/categorias/<int:categoria_id>", methods=["GET", "POST"])
@@ -39,22 +39,21 @@ def item_categoria(categoria_id, item_id):
     return render_template("", categoria=categoria, item=item_categ)
 
 
-@app.route('/categorias/<int:categoria_id>/item', methods=['GET', 'POST'])
-def novo_item_categoria(categoria_id):
+@app.route('/categorias/item', methods=['GET', 'POST'])
+def novo_item_categoria():
     if current_user.is_anonymous:
         return redirect(url_for('login'))
 
-    categoria = db.session.query(Categoria).filter_by(id=categoria_id).one()
+    categorias = db.session.query(Categoria).all()
     if request.method == "POST":
-        novo_item = ItemCategoria(titulo=request.form["titulo"], descricao=request.form['descricao'],
-                                  usuario_id=session["user_id"], categoria_id=categoria.id)
+        novo_item = ItemCategoria(titulo=request.form["titulo"], descricao=request.form["descricao"],
+                                  usuario_id=session["user_id"], categoria_id=request.form["categoria"])
         db.session.add(novo_item)
         db.session.commit()
 
-        flash("Item {0} adicionando a categoria {1}".format(novo_item.titulo, categoria.nome))
-        return redirect(url_for("", categoria_id=categoria_id))
+        return redirect(url_for("categorias"))
 
-    return render_template("", categoria_id=categoria_id)
+    return render_template("item_categoria/novo-item.html", categorias=categorias)
 
 
 @app.route('/categoria/<int:categoria_id>/item/<int:item_id>/editar',
