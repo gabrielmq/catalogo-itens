@@ -3,41 +3,49 @@
 
 <div class="container px-0 h-100">
   {% include "header.html" %}
-  <div class="row">
-    <div class="col-sm-12 col-md-5 col-lg-5">
-      <div class="d-flex flex-row justify-content-between">
-        <p style="font-size: 1.2rem">Categorias</p>
-        <a href="#" style="font-size: 1.2rem">Novo item</a>
+  <section class="card shadow-sm rounded-1">
+    <div class="card-header bg-white py-3">
+      <div class="row align-items-center">
+        <div class="col-sm-12 col-md-5 col-lg-5">
+          <div class="d-flex flex-row justify-content-between px-2">
+            <p class="mb-0" style="font-size: 1.2rem">Categorias</p>
+            {% if current_user.is_authenticated %}
+            <a href="" style="font-size: 1.2rem">Novo item</a>
+            {% endif %}
+          </div>
+        </div>
+        <div id="ultimos-itens" class="col-md-7 col-lg-7">
+          <div class="d-flex flex-row justify-content-center">
+            <p class="mb-0" style="font-size: 1.2rem">Últimos itens</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="ultimos-itens" class="col-md-7 col-lg-7">
-      <div class="d-flex flex-row justify-content-center">
-        <p style="font-size: 1.2rem">Ultimos itens</p>
+    <div class="card-body pt-0">
+      <div class="row">
+        <div class="col-sm-12 col-md-5 col-lg-5 divisor-categorias-itens">
+          <div class="categorias-container">
+            <ul>
+              {% for categoria in categorias %}
+              <li>
+                <a href="#">{{ categoria.nome }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-7 col-lg-7">
+          <div class="itens-categoria-container">
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12 col-md-5 col-lg-5 divisor-categorias-itens">
-      <div class="categorias-container">
-        <ul>
-          {% for categoria in categorias %}
-          <a href="#">
-            <li>{{ categoria.nome }}</li>
-          </a>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-    <div class="col-md-7 col-lg-7">
-      <div class="itens-categoria-container">
-        <ul>
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  </section>
 </div>
 
 {% endblock %}
