@@ -38,8 +38,7 @@ def upgrade():
     sa.Column('categoria_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['categoria_id'], ['categorias.id'], ),
     sa.ForeignKeyConstraint(['usuario_id'], ['usuarios.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('titulo')
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 

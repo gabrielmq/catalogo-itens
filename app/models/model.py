@@ -56,7 +56,7 @@ class ItemCategoria(db.Model):
     __tablename__ = "item_categoria"
 
     id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(80), nullable=False, unique=True)
+    titulo = db.Column(db.String(80), nullable=False)
     descricao = db.Column(db.String(250))
 
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
