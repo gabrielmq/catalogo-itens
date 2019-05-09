@@ -24,4 +24,7 @@ manager.add_command("db", MigrateCommand)
 
 from app.controllers import categoria_controller
 from app.controllers import auth_controller
+
+from app.api import api_v1
+
 import app.models.model
