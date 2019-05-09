@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+{% block content %}
+
+<div class="container px-0 h-100">
+  {% include "header.html" %}
+  <section class="card shadow-sm rounded-1">
+    <div class="card-header bg-white py-3">
+      <p class="mb-0" style="font-size: 1.2rem">Novo Item</p>
+    </div>
+    <div class="card-body">
+      <form method="POST" 
+        action="{{ url_for("novo_item_categoria") }}">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="inputTitulo">
+                <strong>Título:</strong>
+              </label>
+              <input type="text" name="titulo" class="form-control" placeholder="Título" required maxlength="80">
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="inputCategoria">
+                <strong>Categoria:</strong>
+              </label>
+              <select class="form-control" name="categoria" id="selectCategoria" required>
+                <option value="">Selecione uma categoria</option>
+                {% for categoria in categorias %}
+                  <option class="form-control" value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="inputDescricao">
+                <strong>Descrição:</strong>
+              </label>
+              <textarea class="form-control"
+                id="inputDescricao" rows="4"
+                placeholder="Descrição"
+                name="descricao"
+                maxlength="250" style="resize: none" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mt-2">
+          <input class="btn btn-success" type="submit" value="Adicionar">
+          <a class="btn btn-link text-muted px-0"
+              href="{{ url_for("categorias") }}">
+              Voltar
+          </a>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+
+{% endblock %}
