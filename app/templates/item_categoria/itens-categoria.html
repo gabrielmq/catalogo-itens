@@ -1,0 +1,60 @@
+{% extends "main.html" %}
+{% block content %}
+
+<div class="container px-0 h-100">
+  {% include "header.html" %}
+  <section class="card shadow-sm rounded-1">
+    <div class="card-header bg-white py-3">
+      <div class="row align-items-center">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <div class="d-flex flex-row justify-content-between px-2">
+            <p class="mb-0" style="font-size: 1.2rem">Categorias</p>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for("novo_item_categoria") }}" style="font-size: 1.2rem">Novo item</a>
+            {% endif %}
+          </div>
+        </div>
+        <div id="ultimos-itens" class="col-md-8 col-lg-8">
+          <div class="d-flex flex-row justify-content-center">
+            <p class="mb-0" style="font-size: 1.2rem">{{ categoria.nome }} - {{ total_itens }} itens</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4 divisor-categorias-itens">
+          <div class="categorias-container pl-2">
+            <ul>
+              {% for categoria in categorias %}
+              <li>
+                <a href="{{ url_for("itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-8 col-lg-8">
+          <div class="itens-categoria-container">
+            {% for item in itens %}
+              <div class="card shadow-sm rounded-1 mb-3 mr-3" style="width: 19rem; height: 8rem">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center px-1 py-1">
+                  <h5 class="card-title text-center mb-2">
+                    <a href="#">{{ item.titulo }}</a>
+                  </h5>
+                  {% if current_user.is_authenticated %}
+                  <div>
+                    <a href="#" class="card-link">Editar</a>
+                    <a href="#" class="card-link">Remover</a>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
