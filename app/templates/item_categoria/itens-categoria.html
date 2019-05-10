@@ -44,7 +44,7 @@
                   </h5>
                   {% if current_user.is_authenticated %}
                   <div>
-                    <a href="#" class="card-link">Editar</a>
+                    <a href="{{ url_for("editar_item_categoria", categoria_id=item.categoria.id, item_id=item.id) }}" class="card-link">Editar</a>
                     <a href="#" class="card-link">Remover</a>
                   </div>
                   {% endif %}
