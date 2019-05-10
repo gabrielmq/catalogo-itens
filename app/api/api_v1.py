@@ -32,6 +32,6 @@ def itens_categoria_json(categoria_id):
 
 
 @app.route("/api/v1/categorias/item/<int:item_id>")
-def restaurant_menu_item(item_id):
+def item_categoria_json(item_id):
     item = db.session.query(ItemCategoria).filter_by(id=item_id).one()
     return jsonify(item_categoria=item.serialize)
