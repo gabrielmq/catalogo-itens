@@ -34,9 +34,6 @@ def item_categoria(categoria_id, item_id):
 
 @app.route('/categorias/item', methods=['GET', 'POST'])
 def novo_item_categoria():
-    if current_user.is_anonymous:
-        return redirect(url_for('login'))
-
     categorias = db.session.query(Categoria).all()
     if request.method == "POST":
         novo_item = ItemCategoria(titulo=request.form["titulo"], descricao=request.form["descricao"],
@@ -49,12 +46,9 @@ def novo_item_categoria():
     return render_template("item_categoria/novo-item.html", categorias=categorias)
 
 
-@app.route('/categoria/<int:categoria_id>/item/<int:item_id>/editar',
+@app.route('/categorias/<int:categoria_id>/item/<int:item_id>/editar',
            methods=['GET', 'POST'])
 def editar_item_categoria(categoria_id, item_id):
-    if current_user.is_anonymous:
-        return redirect(url_for('login'))
-
     categoria = db.session.query(Categoria).filter_by(id=categoria_id).one()
     item_editado = db.session.query(ItemCategoria).filter_by(categoria_id=categoria.id).filter_by(id=item_id).one()
 
@@ -66,9 +60,9 @@ def editar_item_categoria(categoria_id, item_id):
 
         db.session.add(item_editado)
         db.session.commit()
-        return redirect(url_for("", categoria_id=categoria_id))
+        return redirect(url_for("itens_categoria", categoria_id=categoria_id))
 
-    return render_template("", categoria_id=categoria_id, item_id=item_id, item=item_editado)
+    return render_template("item_categoria/editar-item.html", categoria_id=categoria_id, item_id=item_id, item=item_editado)
 
 
 @app.route("/categorias/<int:categoria_id>/item/<int:item_id>/deletar",
