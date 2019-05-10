@@ -154,8 +154,11 @@ a:hover {
 }
 
 .itens-categoria-container {
-    font-size: 1.2rem;
-    margin: 5px auto 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 15px auto 0;
 }
 
 .itens-categoria-container ul {

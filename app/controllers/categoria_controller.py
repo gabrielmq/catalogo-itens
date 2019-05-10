@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import render_template, redirect, url_for, flash, session, request
+from flask import render_template, redirect, url_for, session, request
 from flask_login import current_user
 
 from app import app, db
@@ -11,32 +11,25 @@ from app.models.model import Categoria, ItemCategoria
 @app.route("/categorias")
 def categorias():
     categorias = db.session.query(Categoria).all()
-    ultimos_itens = db.session.query(ItemCategoria).order_by(db.desc(ItemCategoria.id)).limit(10)
-    return render_template("categoria/categorias.html",
-                           categorias=categorias,
-                           itens=ultimos_itens)
+    ultimos_itens = db.session.query(ItemCategoria).order_by(db.desc(ItemCategoria.id)).limit(6)
+    return render_template("categoria/categorias.html", categorias=categorias, itens=ultimos_itens)
 
 
 @app.route("/categorias/<int:categoria_id>", methods=["GET", "POST"])
 def itens_categoria(categoria_id):
-    if current_user.is_anonymous:
-        return redirect(url_for('login'))
-
+    categorias = db.session.query(Categoria).all()
     categoria = db.session.query(Categoria).filter_by(id=categoria_id).one()
-    itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria.id).all()
-    return render_template("", categoria=categoria, itens=itens)
+
+    total_itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria_id).count()
+    itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria_id).all()
+    return render_template("item_categoria/itens-categoria.html", categorias=categorias, itens=itens,
+                           categoria=categoria, total_itens=total_itens)
 
 
-@app.route('/categorias/<int:categoria_id>/item/<int:item_id>',
-           methods=['GET', 'POST'])
+@app.route('/categorias/<int:categoria_id>/item/<int:item_id>')
 def item_categoria(categoria_id, item_id):
-    if current_user.is_anonymous:
-        return redirect(url_for('login'))
-
-    categoria = db.session.query(Categoria).filter_by(id=categoria_id).one()
-    item_categ = db.session.query(ItemCategoria).filter_by(categoria_id=categoria.id).filter_by(id=item_id).one()
-
-    return render_template("", categoria=categoria, item=item_categ)
+    item = db.session.query(ItemCategoria).filter_by(id=item_id).one()
+    return render_template("", categoria_id=categoria_id, item=item)
 
 
 @app.route('/categorias/item', methods=['GET', 'POST'])

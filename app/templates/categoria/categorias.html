@@ -6,7 +6,7 @@
   <section class="card shadow-sm rounded-1">
     <div class="card-header bg-white py-3">
       <div class="row align-items-center">
-        <div class="col-sm-12 col-md-5 col-lg-5">
+        <div class="col-sm-12 col-md-4 col-lg-4">
           <div class="d-flex flex-row justify-content-between px-2">
             <p class="mb-0" style="font-size: 1.2rem">Categorias</p>
             {% if current_user.is_authenticated %}
@@ -14,7 +14,7 @@
             {% endif %}
           </div>
         </div>
-        <div id="ultimos-itens" class="col-md-7 col-lg-7">
+        <div id="ultimos-itens" class="col-md-8 col-lg-8">
           <div class="d-flex flex-row justify-content-center">
             <p class="mb-0" style="font-size: 1.2rem">Últimos itens</p>
           </div>
@@ -23,29 +23,30 @@
     </div>
     <div class="card-body pt-0">
       <div class="row">
-        <div class="col-sm-12 col-md-5 col-lg-5 divisor-categorias-itens">
+        <div class="col-sm-12 col-md-4 col-lg-4 divisor-categorias-itens">
           <div class="categorias-container pl-2">
             <ul>
               {% for categoria in categorias %}
               <li>
-                <a href="#">{{ categoria.nome }}</a>
+                <a href="{{ url_for("itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
               </li>
               {% endfor %}
             </ul>
           </div>
         </div>
-        <div class="col-md-7 col-lg-7">
+        <div class="col-md-8 col-lg-8">
           <div class="itens-categoria-container">
-            <ul>
-                {% for item in itens %}
-                <li>
-                    <p class="mb-0" style="font-size: 1.2rem">
-                      {{ item.titulo }} 
-                      <span class="ml-3 badge badge-secondary">{{ item.categoria.nome }}</span>
-                    </p>
-                </li>
-                {% endfor %}
-            </ul>
+            {% for item in itens %}
+              <div class="card shadow-sm rounded-1 mb-3 mr-3" style="width: 19rem; height: 8rem">
+                <div class="card-body d-flex flex-column justify-content-center align-items-center px-1 py-3">
+                  <h5 class="card-title text-center">{{ item.titulo }}</h5>
+                  <h6 class="card-subtitle text-center badge badge-pill badge-info"
+                      style="font-size: 0.85rem">
+                    {{ item.categoria.nome }}
+                  </h6>
+                </div>
+              </div>
+            {% endfor %}
           </div>
         </div>
       </div>
