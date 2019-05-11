@@ -31,6 +31,9 @@
                 <a href="{{ url_for("itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
               </li>
               {% endfor %}
+              <li>
+                <a href="{{ url_for("categorias") }}">Últimos itens</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -40,14 +43,8 @@
               <div class="card shadow-sm rounded-1 mb-3 mr-3" style="width: 19rem; height: 8rem">
                 <div class="card-body d-flex flex-column justify-content-center align-items-center px-1 py-1">
                   <h5 class="card-title text-center mb-2">
-                    <a href="#">{{ item.titulo }}</a>
+                    <a href="{{ url_for("item_categoria", categoria_id=item.categoria.id, item_id=item.id) }}">{{ item.titulo }}</a>
                   </h5>
-                  {% if current_user.is_authenticated %}
-                  <div>
-                    <a href="{{ url_for("editar_item_categoria", categoria_id=item.categoria.id, item_id=item.id) }}" class="card-link">Editar</a>
-                    <a href="#" class="card-link">Remover</a>
-                  </div>
-                  {% endif %}
                 </div>
               </div>
             {% endfor %}
