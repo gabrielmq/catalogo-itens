@@ -28,8 +28,10 @@ def itens_categoria(categoria_id):
 
 @app.route('/categorias/<int:categoria_id>/item/<int:item_id>')
 def item_categoria(categoria_id, item_id):
+    categorias = db.session.query(Categoria).all()
     item = db.session.query(ItemCategoria).filter_by(id=item_id).one()
-    return render_template("", categoria_id=categoria_id, item=item)
+    return render_template("item_categoria/item-categoria.html", categoria_id=categoria_id,
+                           categorias=categorias, item=item)
 
 
 @app.route('/categorias/item', methods=['GET', 'POST'])
@@ -62,17 +64,19 @@ def editar_item_categoria(categoria_id, item_id):
         db.session.commit()
         return redirect(url_for("itens_categoria", categoria_id=categoria_id))
 
-    return render_template("item_categoria/editar-item.html", categoria_id=categoria_id, item_id=item_id, item=item_editado)
+    categorias = db.session.query(Categoria).all()
+    return render_template("item_categoria/editar-item.html", categoria_id=categoria_id,
+                           item_id=item_id, item=item_editado, categorias=categorias)
 
 
 @app.route("/categorias/<int:categoria_id>/item/<int:item_id>/deletar",
            methods=['GET', 'POST'])
-def delete_menu_item(categoria_id, item_id):
+def remover_item_categoria(categoria_id, item_id):
     item = db.session.query(ItemCategoria).filter_by(id=item_id).one()
 
     if request.method == "POST":
         db.session.delete(item)
         db.session.commit()
-        return redirect(url_for("", categoria_id=categoria_id, item_id=item_id))
+        return redirect(url_for("itens_categoria", categoria_id=categoria_id))
 
-    return render_template("", categoria_id=categoria_id, item_id=item_id, item=item)
+    return render_template("item_categoria/item-categoria.html", categoria_id=categoria_id, item_id=item_id, item=item)
