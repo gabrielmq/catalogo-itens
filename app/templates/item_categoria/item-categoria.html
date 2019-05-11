@@ -1,0 +1,79 @@
+{% extends "main.html" %}
+{% block content %}
+
+<div class="container px-0 h-100">
+  {% include "header.html" %}
+  <section class="card shadow-sm rounded-1">
+    <div class="card-header bg-white py-3">
+      <div class="row align-items-center">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <div class="d-flex flex-row justify-content-between px-2">
+            <p class="mb-0" style="font-size: 1.2rem">Categorias</p>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for("novo_item_categoria") }}" style="font-size: 1.2rem">Novo item</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body pt-0">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4 divisor-categorias-itens">
+          <div class="categorias-container pl-2">
+            <ul>
+              {% for categoria in categorias %}
+              <li>
+                <a href="{{ url_for("itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
+              </li>
+              {% endfor %}
+              <li>
+                <a href="{{ url_for("categorias") }}">Últimos itens</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-8 col-lg-8">
+          <div class="container-fluid h-100 py-5">
+            <h2>{{ item.titulo }}</h2>
+            <hr>
+            <p style="font-size: 1.2rem">{{ item.descricao }}</p>
+            {% if current_user.is_authenticated %}
+            <div class="py-3">
+              <a class="btn btn-primary mr-2" href="{{ url_for("editar_item_categoria", categoria_id=item.categoria.id, item_id=item.id) }}">Editar</a>
+              <button class="btn btn-danger mr-3" data-toggle="modal" data-target="#modal">Remover</button>
+              <a class="btn btn-link text-muted px-0"
+                 href="{{ url_for("itens_categoria", categoria_id=categoria_id) }}">
+                    Ver itens
+                </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Remover item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST"
+              action="{{ url_for("remover_item_categoria", categoria_id=categoria_id, item_id=item.id) }}">
+        <div class="modal-body">
+          <p style="font-size: 1.2rem">Deseja remover o item: <br>{{ item.titulo }}?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="submit"class="btn btn-danger">Remover</button>
+          <button class="btn" data-dismiss="modal">Sair</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
