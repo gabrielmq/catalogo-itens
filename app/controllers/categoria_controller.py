@@ -11,7 +11,13 @@ from app.models.model import Categoria, ItemCategoria
 @app.route("/categorias")
 def categorias():
     categorias = db.session.query(Categoria).all()
-    ultimos_itens = db.session.query(ItemCategoria).order_by(db.desc(ItemCategoria.id)).limit(6)
+
+    if current_user.is_authenticated:
+        ultimos_itens = db.session.query(ItemCategoria).filter_by(usuario_id=session["user_id"])\
+            .order_by(db.desc(ItemCategoria.id)).limit(6)
+    else:
+        ultimos_itens = db.session.query(ItemCategoria).order_by(db.desc(ItemCategoria.id)).limit(6)
+        
     return render_template("categoria/categorias.html", categorias=categorias, itens=ultimos_itens)
 
 
@@ -20,8 +26,15 @@ def itens_categoria(categoria_id):
     categorias = db.session.query(Categoria).all()
     categoria = db.session.query(Categoria).filter_by(id=categoria_id).one()
 
-    total_itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria_id).count()
-    itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria_id).all()
+    if current_user.is_authenticated:
+        itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria_id)\
+            .filter_by(usuario_id=session["user_id"]).all()
+        total_itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria_id)\
+            .filter_by(usuario_id=session["user_id"]).count()
+    else:
+        itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria_id).all()
+        total_itens = db.session.query(ItemCategoria).filter_by(categoria_id=categoria_id).count()
+
     return render_template("item_categoria/itens-categoria.html", categorias=categorias, itens=itens,
                            categoria=categoria, total_itens=total_itens)
 
