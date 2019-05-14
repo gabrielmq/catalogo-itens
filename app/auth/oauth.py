@@ -22,7 +22,8 @@ class OAuthSignIn(object):
         pass
 
     def get_callback_url(self):
-        return url_for("oauth_callback", provider=self.provider_name, _external=True)
+        return url_for("oauth_callback", provider=self.provider_name,
+                       _external=True)
 
     @classmethod
     def get_provider(self, provider_name):
@@ -68,8 +69,11 @@ class FacebookSignIn(OAuthSignIn):
             decoder=decode_json
         )
 
+        # pega as informações do usuário retornadas pelo facebook
         me = oauth_session.get('me?fields=name,id,email,picture').json()
-        return me.get('name'), me.get('email'), me.get('picture')["data"]["url"]
+        return (me.get('name'),
+                me.get('email'),
+                me.get('picture')["data"]["url"])
 
 
 class GoogleSignIn(OAuthSignIn):
@@ -106,5 +110,6 @@ class GoogleSignIn(OAuthSignIn):
             decoder=decode_json
         )
 
+        # pega as informações do usuário retornadas pelo google
         me = oauth_session.get('userinfo').json()
         return me.get('name'), me.get('email'), me.get('picture')

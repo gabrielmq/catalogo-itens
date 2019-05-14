@@ -22,20 +22,27 @@ def logout():
 
 @login_manager.user_loader
 def load_user(user_id):
+    """Carrega o usuário que acabou de logar na sessão"""
     return db.session.query(Usuario).get(int(user_id))
 
 
 @app.route("/authorize/<string:provider>")
 def oauth_authorize(provider):
+    """Realiza a autorização oauth com o provedor de acesso informado"""
+
     if not current_user.is_anonymous:
         return redirect(url_for('categorias'))
 
+    # obtem o provedor de autenticação e autoriza o acesso
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
 
 
 @app.route("/callback/<string:provider>")
 def oauth_callback(provider):
+    """Callback para obter as informações do perfil do
+    usuário no provedor informado"""
+
     if not current_user.is_anonymous:
         return redirect(url_for("categorias"))
 
@@ -46,11 +53,13 @@ def oauth_callback(provider):
         flash("Falha na autenticação.")
         return redirect(url_for("categorias"))
 
+    # busca o usuáiro no banco, se não existir insere um novo
     user = db.session.query(Usuario).filter_by(email=email).first()
     if not user:
         user = Usuario(nome=username, email=email, foto=picture)
         db.session.add(user)
         db.session.commit()
 
+    # loga o usuário na aplicação e retorna para a página principal
     login_user(user, True)
     return redirect(url_for("categorias"))
