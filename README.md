@@ -16,6 +16,7 @@ Este projeto é uma aplicação web de cadastro de itens para determinadas categ
 - Clone o projeto https://github.com/gabrielmq/catalogo-itens.git
 - Acesse o diretorio do projeto pelo prompt de comando.
 - Execute o comando `pip install -r requirements.txt` para instalar todas as dependências do projeto.
+- Abra o arquivo ``config.py`` e substitua as chaves ``app_id`` e ``app_secret`` pelo app_id e app_secret que o google e o facebook disponibilizam quando a aplicação é cadastrada para permitir autenticação oauth por esses provedores.
 - Execute o comando `python3 run.py runserver` para inicializar a aplicação.
 - Com a aplicação inicializada acesse a url http://localhost:5000
 
