@@ -6,6 +6,7 @@ Este projeto é uma aplicação web de cadastro de itens para determinadas categ
 
 - Python 3.7
 - Flask
+- flask-login
 - flask-sqlalchemy
 - flask-migrate
 - flask-script
