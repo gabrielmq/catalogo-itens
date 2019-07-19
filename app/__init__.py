@@ -2,29 +2,36 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
+from flask_migrate import Migrate
 from flask_login import LoginManager
 
 from config import Config
 
 
-app = Flask(__name__)
-app.config.from_object(Config)
+db = SQLAlchemy()
+migrate = Migrate()
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-login_manager = LoginManager(app)
-login_manager.login_view = "login"
-
-manager = Manager(app)
-manager.add_command("db", MigrateCommand)
+login_manager = LoginManager()
+login_manager.login_view = "auth.login"
 
 
-from app.controllers import categoria_controller
-from app.controllers import auth_controller
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
 
-from app.api import api_v1
+    from app.api import blue_print as api
+    app.register_blueprint(api)
+
+    from app.controllers.auth import auth as auth_bp
+    app.register_blueprint(auth_bp)
+
+    from app.controllers.categoria import categ as categoria_bp
+    app.register_blueprint(categoria_bp)
+
+    return app
+
 
 import app.models.model

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from app import manager
+from app import create_app
 
-
-if __name__ == "__main__":
-    manager.run()
+app = create_app()

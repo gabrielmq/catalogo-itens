@@ -10,7 +10,7 @@
           <div class="d-flex flex-row justify-content-between px-2">
             <p class="mb-0" style="font-size: 1.2rem">Categorias</p>
             {% if current_user.is_authenticated %}
-            <a href="{{ url_for("novo_item_categoria") }}" style="font-size: 1.2rem">Novo item</a>
+            <a href="{{ url_for("categoria.novo_item_categoria") }}" style="font-size: 1.2rem">Novo item</a>
             {% endif %}
           </div>
         </div>
@@ -23,11 +23,11 @@
             <ul>
               {% for categoria in categorias %}
               <li>
-                <a href="{{ url_for("itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
+                <a href="{{ url_for("categoria.itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
               </li>
               {% endfor %}
               <li>
-                <a href="{{ url_for("categorias") }}">Últimos itens</a>
+                <a href="{{ url_for("categoria.categorias") }}">Últimos itens</a>
               </li>
             </ul>
           </div>
@@ -35,7 +35,7 @@
         <div class="col-md-8 col-lg-8">
           <div class="container-fluid h-100 py-5 d-flex flex-column justify-content-center">
             <form method="POST"
-              action="{{ url_for("editar_item_categoria", categoria_id=categoria_id, item_id=item.id) }}">
+              action="{{ url_for("categoria.editar_item_categoria", categoria_id=categoria_id, item_id=item.id) }}">
               <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6">
                   <div class="form-group">
@@ -73,7 +73,7 @@
               <div class="py-1">
                 <input class="btn btn-success mr-2" type="submit" value="Atualizar">
                 <a class="btn btn-link text-muted px-0"
-                    href="{{ url_for("itens_categoria", categoria_id=categoria_id) }}">
+                    href="{{ url_for("categoria.itens_categoria", categoria_id=categoria_id) }}">
                     Ver itens
                 </a>
               </div>

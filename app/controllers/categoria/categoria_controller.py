@@ -3,12 +3,13 @@
 from flask import render_template, redirect, url_for, session, request
 from flask_login import login_required
 
-from app import app, db
+from app.controllers.categoria import categ
+from app import db
 from app.models.model import Categoria, ItemCategoria
 
 
-@app.route("/")
-@app.route("/categorias")
+@categ.route("/")
+@categ.route("/categorias")
 @login_required
 def categorias():
     """Retorna um template com todas as categorias cadastradas"""
@@ -22,7 +23,7 @@ def categorias():
                            categorias=categorias, itens=ultimos_itens)
 
 
-@app.route("/categorias/<int:categoria_id>", methods=["GET", "POST"])
+@categ.route("/categorias/<int:categoria_id>", methods=["GET", "POST"])
 @login_required
 def itens_categoria(categoria_id):
     """Retorna todos os itens de uma determinada categoria"""
@@ -42,7 +43,7 @@ def itens_categoria(categoria_id):
                            categoria=categoria, total_itens=total_itens)
 
 
-@app.route('/categorias/<int:categoria_id>/item/<int:item_id>')
+@categ.route('/categorias/<int:categoria_id>/item/<int:item_id>')
 @login_required
 def item_categoria(categoria_id, item_id):
     """Retorna um item de uma determinada categoria"""
@@ -56,7 +57,7 @@ def item_categoria(categoria_id, item_id):
                            categorias=categorias, item=item)
 
 
-@app.route('/categorias/item', methods=['GET', 'POST'])
+@categ.route('/categorias/item', methods=['GET', 'POST'])
 @login_required
 def novo_item_categoria():
     """Cadastrar um novo item em uma determinada categoria"""
@@ -70,13 +71,13 @@ def novo_item_categoria():
         db.session.add(novo_item)
         db.session.commit()
 
-        return redirect(url_for("categorias"))
+        return redirect(url_for("categoria.categorias"))
 
     return render_template("item_categoria/novo-item.html",
                            categorias=categorias)
 
 
-@app.route('/categorias/<int:categoria_id>/item/<int:item_id>/editar',
+@categ.route('/categorias/<int:categoria_id>/item/<int:item_id>/editar',
            methods=['GET', 'POST'])
 @login_required
 def editar_item_categoria(categoria_id, item_id):
@@ -90,7 +91,7 @@ def editar_item_categoria(categoria_id, item_id):
     if item.usuario_id != int(session["user_id"]):
         return """
         <script>
-            function warning() { 
+            function warning() {
                 alert("Você não está autorizado a editar este item.");
                 window.location.href = "/categorias/%s"
             }
@@ -106,7 +107,7 @@ def editar_item_categoria(categoria_id, item_id):
 
         db.session.add(item)
         db.session.commit()
-        return redirect(url_for("itens_categoria", categoria_id=categoria_id))
+        return redirect(url_for("categoria.itens_categoria", categoria_id=categoria_id))
 
     categorias = db.session.query(Categoria).all()
     return render_template("item_categoria/editar-item.html",
@@ -115,7 +116,7 @@ def editar_item_categoria(categoria_id, item_id):
                            categorias=categorias)
 
 
-@app.route("/categorias/<int:categoria_id>/item/<int:item_id>/deletar",
+@categ.route("/categorias/<int:categoria_id>/item/<int:item_id>/deletar",
            methods=['GET', 'POST'])
 @login_required
 def remover_item_categoria(categoria_id, item_id):
@@ -128,7 +129,7 @@ def remover_item_categoria(categoria_id, item_id):
     if item.usuario_id != int(session["user_id"]):
         return """
         <script>
-            function warning() { 
+            function warning() {
                 alert("Você não está autorizado a remover este item.");
                 window.location.href = "/categorias/%s"
             }
@@ -139,7 +140,7 @@ def remover_item_categoria(categoria_id, item_id):
     if request.method == "POST":
         db.session.delete(item)
         db.session.commit()
-        return redirect(url_for("itens_categoria", categoria_id=categoria_id))
+        return redirect(url_for("categoria.itens_categoria", categoria_id=categoria_id))
 
     return render_template("item_categoria/item-categoria.html",
                            categoria_id=categoria_id, item_id=item_id,

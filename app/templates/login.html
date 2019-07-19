@@ -8,7 +8,7 @@
       <div class="button-container">
         <div class="">
           <a class="btn btn-lg social-button facebook-button"
-             href="{{ url_for('oauth_authorize', provider='facebook') }}">
+             href="{{ url_for('auth.oauth_authorize', provider='facebook') }}">
             <i class="ml-2 fab fa-facebook fa-fw"></i>
             <span class="ml-4">Entrar com o Facebook</span>
           </a>
@@ -18,7 +18,7 @@
         </div>
         <div>
           <a class="btn btn-lg social-button google-button"
-             href="{{ url_for('oauth_authorize', provider='google') }}">
+             href="{{ url_for('auth.oauth_authorize', provider='google') }}">
             <img class="ml-2" width="20px" alt="Google &quot;G&quot; Logo"
                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
             <span class="ml-3">Entrar com o Google</span>

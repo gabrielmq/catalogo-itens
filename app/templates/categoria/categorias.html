@@ -10,7 +10,7 @@
           <div class="d-flex flex-row justify-content-between px-2">
             <p class="mb-0" style="font-size: 1.2rem">Categorias</p>
             {% if current_user.is_authenticated %}
-            <a href="{{ url_for("novo_item_categoria") }}" style="font-size: 1.2rem">Novo item</a>
+            <a href="{{ url_for("categoria.novo_item_categoria") }}" style="font-size: 1.2rem">Novo item</a>
             {% endif %}
           </div>
         </div>
@@ -28,7 +28,7 @@
             <ul>
               {% for categoria in categorias %}
               <li>
-                <a href="{{ url_for("itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
+                <a href="{{ url_for("categoria.itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
               </li>
               {% endfor %}
             </ul>

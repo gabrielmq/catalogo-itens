@@ -10,7 +10,7 @@
           <div class="d-flex flex-row justify-content-between px-2">
             <p class="mb-0" style="font-size: 1.2rem">Categorias</p>
             {% if current_user.is_authenticated %}
-            <a href="{{ url_for("novo_item_categoria") }}" style="font-size: 1.2rem">Novo item</a>
+            <a href="{{ url_for("categoria.novo_item_categoria") }}" style="font-size: 1.2rem">Novo item</a>
             {% endif %}
           </div>
         </div>
@@ -23,11 +23,11 @@
             <ul>
               {% for categoria in categorias %}
               <li>
-                <a href="{{ url_for("itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
+                <a href="{{ url_for("categoria.itens_categoria", categoria_id=categoria.id) }}">{{ categoria.nome }}</a>
               </li>
               {% endfor %}
               <li>
-                <a href="{{ url_for("categorias") }}">Últimos itens</a>
+                <a href="{{ url_for("categoria.categorias") }}">Últimos itens</a>
               </li>
             </ul>
           </div>
@@ -49,14 +49,14 @@
               {% if current_user.is_authenticated %}
               <div class="col-sm-6 col-md-4 col-lg-4">
                 <div class="py-3">
-                  <a class="btn btn-primary mr-2" href="{{ url_for("editar_item_categoria", categoria_id=item.categoria.id, item_id=item.id) }}">Editar</a>
+                  <a class="btn btn-primary mr-2" href="{{ url_for("categoria.editar_item_categoria", categoria_id=item.categoria.id, item_id=item.id) }}">Editar</a>
                   <button class="btn btn-danger mr-3" data-toggle="modal" data-target="#modal">Remover</button>
                 </div>
               {% endif %}
               </div>
               <div class="col-sm-6 col-md-8 col-lg-8 d-flex align-items-center pl-0">
                 <a class="btn btn-link text-muted px-0"
-                  href="{{ url_for("itens_categoria", categoria_id=categoria_id) }}">
+                  href="{{ url_for("categoria.itens_categoria", categoria_id=categoria_id) }}">
                   Ver itens
                 </a>
               </div>             
@@ -65,7 +65,6 @@
         </div>
       </div>
     </div>
-  </section>
 </div>
 
 <div class="modal fade" id="modal" tabindex="-1" role="dialog">
@@ -78,7 +77,7 @@
         </button>
       </div>
       <form method="POST"
-              action="{{ url_for("remover_item_categoria", categoria_id=categoria_id, item_id=item.id) }}">
+              action="{{ url_for("categoria.remover_item_categoria", categoria_id=categoria_id, item_id=item.id) }}">
         <div class="modal-body">
           <p style="font-size: 1.2rem">Deseja remover o item: <br>{{ item.titulo }}?</p>
         </div>
